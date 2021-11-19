@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -72,22 +73,28 @@ private fun Icon() {
 
 @Composable
 private fun Title() {
-    Column {
+    Column(
+        modifier = Modifier.padding(0.dp, 16.dp),
+    ) {
         Text(
             text = "title",
             style = jetTheme.typography.h5,
-            color = Color.Black
+            color = Color.Black,
+            modifier = Modifier.padding(start = 16.dp, bottom = 6.dp)
         )
         Text(
             text = "subtitle",
             style = jetTheme.typography.subtitle1,
-            color = Color.Black.copy(0.7f)
+            color = Color.Black.copy(0.7f),
+            modifier = Modifier.padding(start = 16.dp)
         )
         Text(
             text = "content content content",
             style = jetTheme.typography.caption,
-            color = Color.Black.copy(0.7f)
+            color = Color.Black.copy(0.7f),
+            modifier = Modifier.padding(start = 16.dp, bottom = 6.dp)
         )
+        Divider()
     }
 }
 
@@ -109,7 +116,7 @@ private fun Bottom() {
 @Composable
 private fun Content() {
     Column(
-        Modifier.fillMaxWidth()
+        Modifier.fillMaxWidth().padding(14.dp, 0.dp)
     ) {
         println(LocalDensity.current.density)
         repeat(50) {

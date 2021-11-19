@@ -152,11 +152,13 @@ private fun Title(fraction: Float) {
             .fillMaxWidth()
             .padding(top = offset)
             .heightIn(TitleHeight)
-            .background(Color.White),
+            .background(Color.White)
+            .padding(start = 16.dp),
     ) {
         Text(text = "Title", style = jetTheme.typography.h6, color = Color.Black)
         Text("subtitle", style = jetTheme.typography.body1, color = Color.Black.copy(0.7f))
         Text("pubtime: 2000-1-1", style = jetTheme.typography.body1, color = Color.Black.copy(0.7f))
+        Divider()
     }
 }
 
