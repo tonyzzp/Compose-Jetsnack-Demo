@@ -13,7 +13,7 @@ import me.izzp.jetsnackdemo.ui.theme.jetTheme
 
 
 @Composable
-fun rememberJetIndication(colors: List<Color> = jetTheme.pallet.interactiveMask): Indication {
+fun rememberJetIndication(colors: List<Color> = jetTheme.pallet.gradientSecondary): Indication {
     return remember {
         object : Indication {
             @Composable

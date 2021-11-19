@@ -4,17 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -30,7 +27,8 @@ fun CollapsedLayoutPage() {
         icon = { Icon() },
         title = { Title() },
         content = { Content() },
-        bottom = { Bottom() }
+        bottom = { Bottom() },
+        modifier = Modifier.fillMaxSize().background(jetTheme.pallet.background)
     )
 }
 
@@ -74,27 +72,28 @@ private fun Icon() {
 @Composable
 private fun Title() {
     Column(
-        modifier = Modifier.padding(0.dp, 16.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
     ) {
-        Text(
-            text = "title",
-            style = jetTheme.typography.h5,
-            color = Color.Black,
-            modifier = Modifier.padding(start = 16.dp, bottom = 6.dp)
-        )
-        Text(
-            text = "subtitle",
-            style = jetTheme.typography.subtitle1,
-            color = Color.Black.copy(0.7f),
-            modifier = Modifier.padding(start = 16.dp)
-        )
-        Text(
-            text = "content content content",
-            style = jetTheme.typography.caption,
-            color = Color.Black.copy(0.7f),
-            modifier = Modifier.padding(start = 16.dp, bottom = 6.dp)
-        )
-        Divider()
+        CompositionLocalProvider(LocalContentColor provides jetTheme.pallet.onBackground) {
+            Text(
+                text = "title",
+                style = jetTheme.typography.h5,
+                modifier = Modifier.padding(start = 16.dp, bottom = 6.dp)
+            )
+            Text(
+                text = "subtitle",
+                style = jetTheme.typography.subtitle1,
+                color = LocalContentColor.current.copy(0.7f),
+                modifier = Modifier.padding(start = 16.dp)
+            )
+            Text(
+                text = "content content content",
+                style = jetTheme.typography.caption,
+                color = LocalContentColor.current.copy(0.7f),
+                modifier = Modifier.padding(start = 16.dp, bottom = 6.dp)
+            )
+            Divider(color = jetTheme.pallet.onBackground.copy(0.7f))
+        }
     }
 }
 
@@ -107,7 +106,7 @@ private fun Bottom() {
         Text(
             text = "Bottom Bar",
             style = jetTheme.typography.h6,
-            color = Color.White,
+            color = jetTheme.pallet.onPrimary,
         )
     }
 }
@@ -126,7 +125,7 @@ private fun Content() {
                     .height(30.dp),
                 contentAlignment = Alignment.CenterStart,
             ) {
-                Text("box ${it + 1}")
+                Text("box ${it + 1}", color = jetTheme.pallet.onBackground)
             }
         }
     }

@@ -24,8 +24,8 @@ import me.izzp.jetsnackdemo.ui.theme.jetTheme
 fun JetButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColors: List<Color> = jetTheme.pallet.interactivePrimary,
-    contentColor: Color = jetTheme.pallet.textInteractive,
+    backgroundColors: List<Color> = jetTheme.pallet.gradientPrimary,
+    contentColor: Color = jetTheme.pallet.onPrimary,
     shape: Shape = CircleShape,
     indication: Indication = LocalIndication.current,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -55,10 +55,10 @@ fun JetButton(
 fun JetOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    borderColors: List<Color> = jetTheme.pallet.interactivePrimary,
-    contentColor: Color = jetTheme.pallet.secondary,
+    borderColors: List<Color> = jetTheme.pallet.gradientSecondary,
+    contentColor: Color = jetTheme.pallet.primary,
     pressedContentColor: Color = Color.Black,
-    backgroundColors: List<Color> = jetTheme.pallet.interactiveSecondary,
+    backgroundColors: List<Color> = jetTheme.pallet.gradientPrimary,
     shape: Shape = CircleShape,
     content: ComposableFunction,
 ) {

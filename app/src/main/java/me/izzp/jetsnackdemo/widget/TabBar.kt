@@ -17,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
@@ -102,7 +101,7 @@ fun JetTabItem(
     ) {
         val alpha = if (selected) 1f else ContentAlpha.medium
         CompositionLocalProvider(
-            LocalContentColor provides Color.White,
+            LocalContentColor provides jetTheme.pallet.onPrimary,
             LocalContentAlpha provides alpha,
         ) {
             Icon(icon, null)
@@ -126,6 +125,6 @@ private fun JetIndication() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .border(1.5.dp, Color.White, CircleShape)
+            .border(1.5.dp, jetTheme.pallet.onPrimary, CircleShape)
     ) {}
 }

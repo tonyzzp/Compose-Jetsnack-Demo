@@ -45,7 +45,7 @@ private val TitleMaxOffset = IconMaxOffset + IconMaxSize
 @Composable
 fun CollapsedLayoutPage2() {
     Box(
-        Modifier.fillMaxSize()
+        Modifier.fillMaxSize().background(jetTheme.pallet.background)
     ) {
         val gradientHeight = with(LocalDensity.current) {
             val height = (TitleMaxOffset + TitleHeight) - (TitleMinOffset + TitleHeight)
@@ -71,7 +71,7 @@ private fun Header() {
         Modifier
             .fillMaxWidth()
             .height(HeaderMaxHeight)
-            .background(Brush.horizontalGradient(jetTheme.pallet.interactivePrimary))
+            .background(Brush.horizontalGradient(jetTheme.pallet.gradientPrimary))
     ) {}
 }
 
@@ -152,13 +152,21 @@ private fun Title(fraction: Float) {
             .fillMaxWidth()
             .padding(top = offset)
             .heightIn(TitleHeight)
-            .background(Color.White)
+            .background(jetTheme.pallet.background)
             .padding(start = 16.dp),
     ) {
-        Text(text = "Title", style = jetTheme.typography.h6, color = Color.Black)
-        Text("subtitle", style = jetTheme.typography.body1, color = Color.Black.copy(0.7f))
-        Text("pubtime: 2000-1-1", style = jetTheme.typography.body1, color = Color.Black.copy(0.7f))
-        Divider()
+        Text(text = "Title", style = jetTheme.typography.h6, color = jetTheme.pallet.onBackground)
+        Text(
+            "subtitle",
+            style = jetTheme.typography.body1,
+            color = jetTheme.pallet.onBackground.copy(0.7f)
+        )
+        Text(
+            "pubtime: 2000-1-1",
+            style = jetTheme.typography.body1,
+            color = jetTheme.pallet.onBackground.copy(0.7f)
+        )
+        Divider(color = jetTheme.pallet.onBackground.copy(0.7f))
     }
 }
 
@@ -195,12 +203,12 @@ private fun Body(
         ) {
             Spacer(Modifier.height(IconMaxOffset + IconMaxSize + TitleHeight - HeaderMinHeight))
             Column(
-                modifier = Modifier.fillMaxSize().background(Color.White)
+                modifier = Modifier.fillMaxSize().background(jetTheme.pallet.background)
             ) {
                 repeat(50) {
                     ListItem(
                         modifier = Modifier.clickable { },
-                        text = { Text("index: ${it + 1}") }
+                        text = { Text("index: ${it + 1}", color = jetTheme.pallet.onBackground) }
                     )
                 }
                 Spacer(Modifier.height(BottomBarHeight))

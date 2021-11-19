@@ -28,7 +28,7 @@ fun JetCheckableChip(
     } else {
         Modifier.border(
             2.dp,
-            Brush.horizontalGradient(jetTheme.pallet.interactivePrimary),
+            Brush.horizontalGradient(jetTheme.pallet.gradientPrimary),
             CircleShape
         )
     }

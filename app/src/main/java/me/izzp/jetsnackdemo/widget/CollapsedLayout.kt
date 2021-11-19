@@ -47,6 +47,7 @@ fun CollapsedLayout(
     icon: ComposableFunction,
     title: ComposableFunction,
     bottom: ComposableFunction,
+    modifier: Modifier = Modifier,
     headerMaxHeight: Dp = 200.dp,
     headerMinHeight: Dp = 56.dp,
     content: ComposableFunction,
@@ -123,7 +124,7 @@ fun CollapsedLayout(
         consumed
     }
     SubcomposeLayout(
-        modifier = Modifier.scrollable(scrollableState, Orientation.Vertical)
+        modifier = modifier.scrollable(scrollableState, Orientation.Vertical)
     ) { constraints ->
         containerMaxWidth = constraints.maxWidth
         containerMaxHeight = constraints.maxHeight
@@ -138,18 +139,31 @@ fun CollapsedLayout(
             constraints.copy(minHeight = headerHeight, maxHeight = headerHeight)
         )
 
-        val placeableIcon = measurableIcon.measure(
-            constraints.copy(minWidth = iconSize, maxWidth = iconSize)
-        )
+        val placeableIcon = measurableIcon.measure(Constraints.fixed(iconSize, iconSize))
 
-        val placeableTitle = measurableTitle.measure(constraints)
+        val placeableTitle = measurableTitle.measure(
+            Constraints(
+                maxWidth = constraints.maxWidth,
+                maxHeight = constraints.maxHeight
+            )
+        )
         titleHeight = placeableTitle.height
 
-        val placeableBottom = measurableBottom.measure(constraints)
+        val placeableBottom = measurableBottom.measure(
+            Constraints(
+                maxWidth = constraints.maxWidth,
+                maxHeight = constraints.maxHeight,
+            )
+        )
         bottomHeight = placeableBottom.height
 
         val placeableContent = measurableContent.measure(
-            constraints.copy(maxHeight = remainHeight)
+            constraints.copy(
+                minHeight = 0,
+                maxHeight = remainHeight.coerceAtLeast(0),
+                minWidth = 0,
+                maxWidth = constraints.maxWidth,
+            )
         )
         val totalHeight =
             bottomHeight + placeableContent.height + titleHeight + iconSize + (headerHeight - iconSize / 2)

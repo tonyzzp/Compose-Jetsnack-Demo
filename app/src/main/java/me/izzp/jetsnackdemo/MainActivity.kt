@@ -3,13 +3,9 @@ package me.izzp.jetsnackdemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,6 +16,7 @@ import me.izzp.jetsnackdemo.pages.CollapsedLayoutPage
 import me.izzp.jetsnackdemo.pages.CollapsedLayoutPage2
 import me.izzp.jetsnackdemo.pages.TabBarPage
 import me.izzp.jetsnackdemo.ui.theme.JetTheme
+import me.izzp.jetsnackdemo.ui.theme.jetTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -47,12 +44,21 @@ private fun Gate() {
         composable("home") {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(8.dp, 16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(jetTheme.pallet.background)
+                    .padding(8.dp, 16.dp),
             ) {
                 list.forEach {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { navController.navigate(it) },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = jetTheme.pallet.primary,
+                            contentColor = jetTheme.pallet.onPrimary,
+                            disabledBackgroundColor = jetTheme.pallet.primary.copy(ContentAlpha.disabled),
+                            disabledContentColor = jetTheme.pallet.onPrimary.copy(ContentAlpha.disabled),
+                        )
                     ) { Text(it) }
                 }
             }

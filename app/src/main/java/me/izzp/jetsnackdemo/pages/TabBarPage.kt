@@ -1,5 +1,6 @@
 package me.izzp.jetsnackdemo.pages
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,13 +15,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import me.izzp.jetsnackdemo.rememberInt
+import me.izzp.jetsnackdemo.ui.theme.jetTheme
 import me.izzp.jetsnackdemo.widget.JetTabBar
 import me.izzp.jetsnackdemo.widget.JetTabItem
 
 @Composable
 fun TabBarPage() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(jetTheme.pallet.background),
         verticalArrangement = Arrangement.Bottom,
     ) {
 
