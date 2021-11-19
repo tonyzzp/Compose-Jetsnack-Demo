@@ -20,15 +20,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import me.izzp.jetsnackdemo.R
 import me.izzp.jetsnackdemo.ui.theme.jetTheme
-import me.izzp.jetsnackdemo.widget.CollapseLayout
+import me.izzp.jetsnackdemo.widget.CollapsedLayout
 
 @Composable
 fun CollapsedLayoutPage() {
-    CollapseLayout(
+    CollapsedLayout(
         header = { Header() },
         icon = { Icon() },
         title = { Title() },
-        content = { Content() }
+        content = { Content() },
+        bottom = { Bottom() }
     )
 }
 
@@ -86,6 +87,20 @@ private fun Title() {
             text = "content content content",
             style = jetTheme.typography.caption,
             color = Color.Black.copy(0.7f)
+        )
+    }
+}
+
+@Composable
+private fun Bottom() {
+    Box(
+        modifier = Modifier.fillMaxWidth().height(56.dp).background(jetTheme.pallet.primary),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = "Bottom Bar",
+            style = jetTheme.typography.h6,
+            color = Color.White,
         )
     }
 }

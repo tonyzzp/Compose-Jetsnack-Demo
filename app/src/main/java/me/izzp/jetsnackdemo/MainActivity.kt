@@ -6,17 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.izzp.jetsnackdemo.pages.CollapsedLayoutPage
+import me.izzp.jetsnackdemo.pages.CollapsedLayoutPage2
 import me.izzp.jetsnackdemo.pages.TabBarPage
 import me.izzp.jetsnackdemo.ui.theme.JetTheme
 
@@ -34,6 +35,8 @@ class MainActivity : ComponentActivity() {
 
 }
 
+private val list = listOf("tabBar", "collapsedLayout", "collapsedLayout2")
+
 @Composable
 private fun Gate() {
     val navController = rememberNavController()
@@ -42,9 +45,9 @@ private fun Gate() {
         startDestination = "home"
     ) {
         composable("home") {
-            val list = remember { listOf("collapsedLayout", "tabBar") }
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(8.dp, 16.dp),
             ) {
                 list.forEach {
                     Button(
@@ -54,8 +57,9 @@ private fun Gate() {
                 }
             }
         }
-        composable("collapsedLayout") { CollapsedLayoutPage() }
         composable("tabBar") { TabBarPage() }
+        composable("collapsedLayout") { CollapsedLayoutPage() }
+        composable("collapsedLayout2") { CollapsedLayoutPage2() }
     }
 
 }

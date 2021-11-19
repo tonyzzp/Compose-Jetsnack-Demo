@@ -24,20 +24,6 @@ fun TabBarPage() {
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
     ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            var selected by rememberBoolean()
-            JetTabItem(
-                icon = Icons.Default.Home,
-                title = "HOME",
-                selected = selected,
-                onClick = {
-                    selected = !selected
-                }
-            )
-        }
 
         var currentTab by rememberInt()
         val tabs = remember {

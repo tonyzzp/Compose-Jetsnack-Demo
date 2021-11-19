@@ -24,7 +24,10 @@ fun lerp(start: Float, end: Float, fraction: Float) = start + (end - start) * fr
 
 
 fun calcFraction(start: Int, end: Int, value: Int): Float =
-    (value.toFloat() - start) / (end - start)
+    ((value.toFloat() - start) / (end - start)).coerceIn(0f, 1f)
+
+fun calcFraction(start: Float, end: Float, value: Float): Float =
+    ((value - start) / (end - start)).coerceIn(0f, 1f)
 
 @Composable
 fun <T> rememberDerivedStateOf(calculation: () -> T) = remember {

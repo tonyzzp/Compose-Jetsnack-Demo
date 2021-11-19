@@ -42,10 +42,11 @@ private fun VerticalScrollView(
 }
 
 @Composable
-fun CollapseLayout(
+fun CollapsedLayout(
     header: ComposableFunction,
     icon: ComposableFunction,
     title: ComposableFunction,
+    bottom: ComposableFunction,
     headerMaxHeight: Dp = 200.dp,
     headerMinHeight: Dp = 56.dp,
     content: ComposableFunction,
@@ -56,6 +57,7 @@ fun CollapseLayout(
     var containerMaxWidth by rememberInt()
     var containerMaxHeight by rememberInt()
     var headerHeight by rememberInt(headerMax)
+    var bottomHeight by rememberInt(0)
     val fraction by derivedStateOf {
         val rtn = calcFraction(headerMin, headerMax, headerHeight)
         rtn
@@ -76,8 +78,7 @@ fun CollapseLayout(
         lerp(min.toFloat(), max.toFloat(), fraction)
     }
     val remainHeight by rememberDerivedStateOf {
-        val height = titleTop + titleHeight
-        val rtn = containerMaxHeight - height
+        val rtn = containerMaxHeight - (titleTop + titleHeight) - bottomHeight
         rtn.roundToInt()
     }
     val iconAnchorX by rememberDerivedStateOf {
@@ -131,6 +132,7 @@ fun CollapseLayout(
         val measurableIcon = subcompose("icon", icon).first()
         val measurableTitle = subcompose("title", title).first()
         val measurableContent = subcompose("content", realContent).first()
+        val measurableBottom = subcompose("bottom", bottom).first()
 
         val placeableHeader = measurableHeader.measure(
             constraints.copy(minHeight = headerHeight, maxHeight = headerHeight)
@@ -143,14 +145,17 @@ fun CollapseLayout(
         val placeableTitle = measurableTitle.measure(constraints)
         titleHeight = placeableTitle.height
 
+        val placeableBottom = measurableBottom.measure(constraints)
+        bottomHeight = placeableBottom.height
+
         val placeableContent = measurableContent.measure(
             constraints.copy(maxHeight = remainHeight)
         )
-        val contentHeight =
-            placeableContent.height + titleHeight + iconSize + (headerHeight - iconSize / 2)
+        val totalHeight =
+            bottomHeight + placeableContent.height + titleHeight + iconSize + (headerHeight - iconSize / 2)
         layout(
             constraints.maxWidth,
-            constraints.constrainHeight(contentHeight)
+            constraints.constrainHeight(totalHeight)
         ) {
             placeableHeader.placeRelative(0, 0)
             placeableIcon.placeRelative(
@@ -164,6 +169,10 @@ fun CollapseLayout(
             placeableContent.placeRelative(
                 0,
                 titleTop.roundToInt() + titleHeight
+            )
+            placeableBottom.placeRelative(
+                0,
+                titleTop.roundToInt() + titleHeight + placeableContent.height
             )
         }
     }
